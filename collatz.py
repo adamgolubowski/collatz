@@ -13,12 +13,12 @@ class Collatz:
         if n == 0:
             result = 0
         elif n == 1:
-            result = 1
+            pass
         elif n % 2 == 0:
             result = n / 2
         else:
             result = 3 * n + 1
-        return result
+        return int(result)
             
     def __init__(self,n=0):
         self.sequence = []
@@ -33,8 +33,14 @@ class Collatz:
         return len(self.sequence)
     
     def __getitem__(self,key):
+        """ Get element of Collatz sequence at a place specified by key """
         return self.sequence[key]
     
+    def __iter__(self):
+        """ Collatz sequence iterator """
+        for member in self.sequence:
+            yield int(member)
+  
     @staticmethod
     def get_sequence(n):
         """ Generate a full sequence of numbers in Collatz sequence starting with integer n and ending in 1"""
@@ -52,9 +58,9 @@ class Collatz:
     def generate_sequence(n):
         """ A generator for lazy iteration over Collatz conjecture sequence starting with integer n """
         member = n
-        while member != 1:
+        while member >= 1:
+            yield int(member)
             member = Collatz.successor(member)
-            yield member
     
 c1 = Collatz(1)
 c2 = Collatz(2)
@@ -79,7 +85,11 @@ assert(Collatz.get_sequence(3) == [3,10,5,16,8,4,2,1])
 assert(Collatz.get_sequence(4) == [4,2,1])
 assert(Collatz.get_sequence(5) == [5,16,8,4,2,1])
 
-assert(Collatz.successor(1) == 1)
+assert(Collatz.successor(1) == 0)
 assert(Collatz.successor(2) == 1)
 assert(Collatz.successor(3) == 10)
 assert(Collatz.successor(4) == 2)
+
+assert([x for x in c5] == [5,16,8,4,2,1])
+
+assert([x for x in Collatz.generate_sequence(5)] == [5,16,8,4,2,1])
