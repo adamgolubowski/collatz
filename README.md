@@ -28,6 +28,11 @@ assert(c3[0] == 3)
 assert(c3[3] == 16)
 ```
 
+iterate over sequence:
+```python
+assert([x for x in c5] == [5,16,8,4,2,1])
+```
+
 lazy generation of sequence. Useful for large sequences. 
 ```python
 assert([x for x in Collatz.generate_sequence(5)] == [5,16,8,4,2,1]) 
